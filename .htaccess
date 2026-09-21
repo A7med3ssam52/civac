@@ -1,0 +1,32 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  # Fix misspelled Carrefoue -> Carrefour (case-insensitive, preserve path)
+  RewriteCond %{REQUEST_URI} carrefoue [NC]
+  RewriteRule ^(.*)carrefoue(.*)$ /$1Carrefour$2 [R=301,L,NC]
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteRule . /index.html [L]
+</IfModule>
+# Legacy WordPress redirects (SEO preservation)
+<IfModule mod_alias.c>
+  Redirect 301 /our-story /about
+  Redirect 301 /departments /services
+  Redirect 301 /contact /contact
+  Redirect 301 /news /news
+  RedirectMatch 301 ^/home/industrial-projects/?$ /projects/industrial
+  RedirectMatch 301 ^/home/commercial-projects/?$ /projects/commercial
+  RedirectMatch 301 ^/home/residential-projects/?$ /projects/residential
+  RedirectMatch 301 ^/home/food-and-beverage/?$ /projects/food-beverage
+  RedirectMatch 301 ^/home/infrastructure-projects/?$ /projects/infrastructure
+  RedirectMatch 301 ^/home/water-structures/?$ /projects/water
+  RedirectMatch 301 ^/home/eductional-facilities/?$ /projects/educational
+  # Misspelled Carrefour legacy URLs (Carrefoue -> Carrefour)
+  RedirectMatch 301 (?i)^/home/carrefoue/?$ /projects/commercial
+  RedirectMatch 301 (?i)^/home/carrefoue-(.*)/?$ /projects/commercial
+  RedirectMatch 301 (?i)^/(.*)carrefoue(.*)$ /$1Carrefour$2
+  RedirectMatch 301 ^/home/engineering-works/?$ /projects/engineering
+  RedirectMatch 301 ^/projects/?$ /projects
+</IfModule>
