@@ -1,26 +1,29 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, BadgeCheck, ChevronDown, Factory, Fan, Paintbrush, Building2, Zap } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
-import { detectLang } from '../lib/lang';
-import { clients, projects } from '../data/projects';
-import { services } from '../data/services';
+import { Link } from 'react-router-dom';
+import { getClients, getProjects, getServices } from '../lib/api';
+import type { Project, Service } from '../lib/api';
+import { useLang, px } from '../hooks/useLang';
 import { Counter, SectionHeading } from '../components/ui';
 
-function useLang() {
-  const { pathname, hash } = useLocation();
-  return detectLang(pathname, hash);
-}
-const px = (l: string, p: string) => (l === 'ar' ? `/ar${p === '/' ? '' : p}` : p);
 const icons: Record<string, any> = { building: Building2, paint: Paintbrush, fan: Fan, zap: Zap, factory: Factory };
 
 export default function Home() {
   const { t } = useTranslation();
   const lang = useLang();
+  const [projects, setProjects] = useState<Project[] | null>(null);
+  const [services, setServices] = useState<Service[] | null>(null);
+  const [clients, setClients] = useState<string[] | null>(null);
+  useEffect(() => {
+    getProjects().then(setProjects);
+    getServices().then(setServices);
+    getClients().then(setClients);
+  }, []);
   const [filter, setFilter] = useState<string>('all');
-  const cats = useMemo(() => ['all', ...Array.from(new Set(projects.map((p) => p.category)))], []);
-  const shown = useMemo(() => (filter === 'all' ? projects.slice(0, 6) : projects.filter((p) => p.category === filter).slice(0, 6)), [filter]);
+  const cats = useMemo(() => ['all', ...Array.from(new Set((projects ?? []).map((p) => p.category)))], [projects]);
+  const shown = useMemo(() => (filter === 'all' ? (projects ?? []).slice(0, 6) : (projects ?? []).filter((p) => p.category === filter).slice(0, 6)), [filter, projects]);
 
   return (
     <div>
@@ -63,7 +66,7 @@ export default function Home() {
             <Link to={px(lang, '/services')} className="rounded-full border border-ink px-6 py-3 text-sm font-bold text-ink hover:bg-ink hover:text-white">{t('services.viewAll')}</Link>
           </div>
           <div className="mt-12 grid gap-5 md:grid-cols-3 lg:grid-cols-5">
-            {services.map((s, i) => {
+            {(services ?? []).map((s, i) => {
               const Icon = icons[s.icon] ?? Factory;
               return (
                 <motion.div key={s.id} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }} className="card-hover group rounded-3xl bg-ink p-6 text-white">
@@ -116,7 +119,7 @@ export default function Home() {
         </div>
         <div className="relative mt-8 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
           <div className="flex w-max animate-marquee gap-4 pe-4">
-            {[...clients, ...clients].map((c, i) => (
+            {[...(clients ?? []), ...(clients ?? [])].map((c, i) => (
               <span key={i} className="flex items-center gap-2 whitespace-nowrap rounded-full bg-white px-6 py-3 font-display font-bold text-ink-soft ring-1 ring-ink/10"><BadgeCheck size={16} className="text-brand" />{c}</span>
             ))}
           </div>

@@ -1,6 +1,8 @@
+import { Suspense, lazy } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
+import { isFileProtocol } from './lib/lang';
 import About from './pages/About';
 import Clients from './pages/Clients';
 import Contact from './pages/Contact';
@@ -13,9 +15,19 @@ import Quote from './pages/Quote';
 import ServiceDetail from './pages/ServiceDetail';
 import Services from './pages/Services';
 
-function LangRoutes({ base }: { base: string }) {
-  // base '' for EN, '/ar' for AR — React Router handles via nested paths
-  void base;
+const AdminGate = lazy(() => import('./pages/admin/AdminGate'));
+const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
+const AdminHome = lazy(() => import('./pages/admin/AdminHome'));
+
+function AdminLoading() {
+  return (
+    <div dir="ltr" className="flex min-h-screen items-center justify-center bg-[#F4F4F1] text-[#303026]">
+      Loading admin panel…
+    </div>
+  );
+}
+
+function LangRoutes() {
   return (
     <Routes>
       <Route element={<Layout />}>
@@ -35,13 +47,24 @@ function LangRoutes({ base }: { base: string }) {
   );
 }
 
-import { isFileProtocol } from './lib/lang';
-
 function SiteRoutes() {
   return (
     <Routes>
-      <Route path="/ar/*" element={<LangRoutes base="/ar" />} />
-      <Route path="/*" element={<LangRoutes base="" />} />
+      <Route
+        path="/admin/*"
+        element={
+          <Suspense fallback={<AdminLoading />}>
+            <AdminGate>
+              <AdminLayout />
+            </AdminGate>
+          </Suspense>
+        }
+      >
+        <Route index element={<AdminHome />} />
+        {/* Wave 2: Agents D/E add "projects" and "messages" child routes here. */}
+      </Route>
+      <Route path="/ar/*" element={<LangRoutes />} />
+      <Route path="/*" element={<LangRoutes />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
