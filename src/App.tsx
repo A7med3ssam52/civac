@@ -1,5 +1,5 @@
 import { HelmetProvider } from 'react-helmet-async';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import About from './pages/About';
 import Clients from './pages/Clients';
@@ -35,18 +35,35 @@ function LangRoutes({ base }: { base: string }) {
   );
 }
 
+import { isFileProtocol } from './lib/lang';
+
+function SiteRoutes() {
+  return (
+    <Routes>
+      <Route path="/ar/*" element={<LangRoutes base="/ar" />} />
+      <Route path="/*" element={<LangRoutes base="" />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
+}
+
 export default function App() {
-  // '/CIVAC' on GitHub Pages builds (vite --base), '/' everywhere else (local dev, root domain)
-  const basename = import.meta.env.BASE_URL.replace(/\/+$/, '') || '/';
+  // '/civac' on GitHub Pages builds (vite --base), '/' everywhere else (local dev, root domain).
+  // Single-file preview opened via file:// uses HashRouter so every page works offline.
+  const rawBase = import.meta.env.BASE_URL;
+  const basename = rawBase.startsWith('/') ? rawBase.replace(/\/+$/, '') || '/' : '/';
+  const filePreview = isFileProtocol();
   return (
     <HelmetProvider>
-      <BrowserRouter basename={basename}>
-        <Routes>
-          <Route path="/ar/*" element={<LangRoutes base="/ar" />} />
-          <Route path="/*" element={<LangRoutes base="" />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </BrowserRouter>
+      {filePreview ? (
+        <HashRouter>
+          <SiteRoutes />
+        </HashRouter>
+      ) : (
+        <BrowserRouter basename={basename}>
+          <SiteRoutes />
+        </BrowserRouter>
+      )}
     </HelmetProvider>
   );
 }

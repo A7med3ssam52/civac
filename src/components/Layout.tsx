@@ -3,10 +3,11 @@ import { ArrowUp, Mail, MapPin, Menu, Phone, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { detectLang } from '../lib/lang';
 
 function useLang() {
-  const { pathname } = useLocation();
-  return pathname.split('/').includes('ar') ? 'ar' : 'en';
+  const { pathname, hash } = useLocation();
+  return detectLang(pathname, hash);
 }
 function prefix(lang: string, path: string) {
   return lang === 'ar' ? `/ar${path === '/' ? '' : path}` : path;

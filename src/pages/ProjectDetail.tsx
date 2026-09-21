@@ -1,11 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useParams } from 'react-router-dom';
+import { detectLang } from '../lib/lang';
 import { projects } from '../data/projects';
 
 export default function ProjectDetail() {
   const { slug } = useParams();
   const { t } = useTranslation();
-  const lang = useLocation().pathname.split('/').includes('ar') ? 'ar' : 'en';
+  const loc = useLocation();
+  const lang = detectLang(loc.pathname, loc.hash);
   const p = projects.find((x) => x.slug === slug);
   const px = (s: string) => (lang === 'ar' ? `/ar${s}` : s);
   if (!p) return <div className="pt-32 text-center">Not found — <Link to={px('/projects')}>back</Link></div>;

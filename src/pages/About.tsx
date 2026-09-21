@@ -1,10 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
+import { detectLang } from '../lib/lang';
 import { SectionHeading } from '../components/ui';
 
 export default function About() {
   const { t } = useTranslation();
-  const lang = useLocation().pathname.split('/').includes('ar') ? 'ar' : 'en';
+  const loc = useLocation();
+  const lang = detectLang(loc.pathname, loc.hash);
   const values = t('values', { returnObjects: true }) as string[];
   const valuesBody = t('valuesBody', { returnObjects: true }) as string[];
   return (

@@ -2,12 +2,14 @@ import { ArrowRight } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
+import { detectLang } from '../lib/lang';
 import { categories, projects } from '../data/projects';
 import { SectionHeading } from '../components/ui';
 
 export default function Projects() {
   const { t } = useTranslation();
-  const lang = useLocation().pathname.split('/').includes('ar') ? 'ar' : 'en';
+  const loc = useLocation();
+  const lang = detectLang(loc.pathname, loc.hash);
   const [f, setF] = useState('all');
   const shown = useMemo(() => (f === 'all' ? projects : projects.filter((p) => p.category === f)), [f]);
   const px = (p: string) => (lang === 'ar' ? `/ar${p}` : p);

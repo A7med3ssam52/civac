@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import { detectLang } from '../lib/lang';
 
 type Post = {
   dateEn: string;
@@ -63,7 +64,8 @@ const posts: Post[] = [
 ];
 
 export default function News() {
-  const lang = useLocation().pathname.split('/').includes('ar') ? 'ar' : 'en';
+  const loc = useLocation();
+  const lang = detectLang(loc.pathname, loc.hash);
   return (
     <div className="pt-[72px] bg-mist-bg py-16 min-h-screen"><div className="mx-auto max-w-5xl px-5">
       <h1 className="font-display text-4xl md:text-5xl font-black text-ink">{lang === 'ar' ? 'الأخبار ويوميات الموقع' : 'News & Site Diary'}</h1>

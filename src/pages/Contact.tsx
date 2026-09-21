@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
+import { detectLang } from '../lib/lang';
 
 export default function Contact() {
   const { t } = useTranslation();
-  const lang = useLocation().pathname.split('/').includes('ar') ? 'ar' : 'en';
+  const loc = useLocation();
+  const lang = detectLang(loc.pathname, loc.hash);
   const [ok, setOk] = useState(false);
   return (
     <div className="pt-[72px] bg-mist-bg min-h-screen py-16">

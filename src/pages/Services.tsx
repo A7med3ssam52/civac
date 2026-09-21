@@ -1,13 +1,15 @@
 import { Building2, Factory, Fan, Paintbrush, Zap } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
+import { detectLang } from '../lib/lang';
 import { services } from '../data/services';
 import { SectionHeading } from '../components/ui';
 const icons: Record<string, any> = { building: Building2, paint: Paintbrush, fan: Fan, zap: Zap, factory: Factory };
 
 export default function Services() {
   const { t } = useTranslation();
-  const lang = useLocation().pathname.split('/').includes('ar') ? 'ar' : 'en';
+  const loc = useLocation();
+  const lang = detectLang(loc.pathname, loc.hash);
   const px = (p: string) => (lang === 'ar' ? `/ar${p}` : p);
   return (
     <div className="pt-[72px] bg-mist-bg min-h-screen py-16">

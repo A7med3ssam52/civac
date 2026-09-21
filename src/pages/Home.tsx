@@ -3,13 +3,14 @@ import { ArrowRight, ArrowUpRight, BadgeCheck, ChevronDown, Factory, Fan, Paintb
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
+import { detectLang } from '../lib/lang';
 import { clients, projects } from '../data/projects';
 import { services } from '../data/services';
 import { Counter, SectionHeading } from '../components/ui';
 
 function useLang() {
-  const { pathname } = useLocation();
-  return pathname.split('/').includes('ar') ? 'ar' : 'en';
+  const { pathname, hash } = useLocation();
+  return detectLang(pathname, hash);
 }
 const px = (l: string, p: string) => (l === 'ar' ? `/ar${p === '/' ? '' : p}` : p);
 const icons: Record<string, any> = { building: Building2, paint: Paintbrush, fan: Fan, zap: Zap, factory: Factory };
