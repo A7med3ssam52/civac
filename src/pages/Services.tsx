@@ -28,9 +28,9 @@ export default function Services() {
             return (
               <div key={s.id} className="card-hover rounded-3xl bg-ink p-8 text-white">
                 <div className="flex h-13 w-13 h-[52px] w-[52px] items-center justify-center rounded-2xl bg-brand text-[#15150F]"><Icon /></div>
-                <h3 className="font-display mt-5 text-2xl font-extrabold">{lang === 'ar' ? s.titleAr : s.titleEn}</h3>
-                <p className="mt-2 text-mist/85">{lang === 'ar' ? s.descAr : s.descEn}</p>
-                <ul className="mt-4 space-y-1.5 text-sm text-mist">{(lang === 'ar' ? s.pointsAr : s.pointsEn).map((pt) => <li key={pt}>• {pt}</li>)}</ul>
+                <h3 className="font-display mt-5 text-2xl font-extrabold">{s.title}</h3>
+                <p className="mt-2 text-mist/85">{s.desc}</p>
+                <ul className="mt-4 space-y-1.5 text-sm text-mist">{s.points.map((pt) => <li key={pt}>• {pt}</li>)}</ul>
                 <Link to={px(lang, `/services/${s.id}`)} className="mt-6 inline-block rounded-full bg-brand px-6 py-3 text-sm font-bold text-[#15150F]">{t('services.quote')}</Link>
               </div>
             );

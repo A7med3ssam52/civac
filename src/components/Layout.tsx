@@ -2,21 +2,10 @@ import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
 import { ArrowUp, Mail, MapPin, Menu, Phone, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { detectLang } from '../lib/lang';
-
-function useLang() {
-  const { pathname, hash } = useLocation();
-  return detectLang(pathname, hash);
-}
-function prefix(lang: string, path: string) {
-  return lang === 'ar' ? `/ar${path === '/' ? '' : path}` : path;
-}
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 
 export default function Layout() {
   const { t, i18n } = useTranslation();
-  const lang = useLang();
-  const nav = useNavigate();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -25,10 +14,10 @@ export default function Layout() {
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 24 });
 
   useEffect(() => {
-    i18n.changeLanguage(lang);
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-  }, [lang, i18n]);
+    i18n.changeLanguage('en');
+    document.documentElement.lang = 'en';
+    document.documentElement.dir = 'ltr';
+  }, [i18n]);
 
   useEffect(() => {
     const f = () => {
@@ -42,21 +31,19 @@ export default function Layout() {
   useEffect(() => { setOpen(false); window.scrollTo({ top: 0 }); }, [pathname]);
 
   const links = [
-    { to: prefix(lang, '/'), label: t('nav.home'), end: true },
-    { to: prefix(lang, '/about'), label: t('nav.about') },
-    { to: prefix(lang, '/services'), label: t('nav.services') },
-    { to: prefix(lang, '/projects'), label: t('nav.projects') },
-    { to: prefix(lang, '/contact'), label: t('nav.contact') },
+    { to: '/', label: t('nav.home'), end: true },
+    { to: '/about', label: t('nav.about') },
+    { to: '/services', label: t('nav.services') },
+    { to: '/projects', label: t('nav.projects') },
+    { to: '/contact', label: t('nav.contact') },
   ];
-
-  const switchLang = () => nav(lang === 'ar' ? '/' : '/ar');
 
   return (
     <div className="min-h-screen bg-white">
       <motion.div style={{ scaleX: progress }} className="fixed top-0 start-0 end-0 z-[60] h-1 origin-start bg-brand" />
       <header className={`fixed top-0 inset-x-0 z-50 transition-all ${scrolled ? 'glass-dark shadow-xl !bg-ink-deep/90' : 'bg-gradient-to-b from-ink-deep/70 to-transparent'}`}>
         <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5">
-          <Link to={prefix(lang, '/')} className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3">
             <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="CIVAC — Engineering and Contracting" className="h-11 w-auto rounded-lg" />
           </Link>
           <nav className="hidden lg:flex items-center gap-7">
@@ -67,8 +54,7 @@ export default function Layout() {
             ))}
           </nav>
           <div className="hidden lg:flex items-center gap-3">
-            <button onClick={switchLang} className="rounded-full border border-white/25 px-4 py-2 text-xs font-bold text-white hover:border-brand hover:text-brand-soft">{t('nav.lang')}</button>
-            <Link to={prefix(lang, '/quote')} className="rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-[#15150F] hover:bg-brand-dark transition-colors">{t('nav.quote')}</Link>
+            <Link to="/quote" className="rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-[#15150F] hover:bg-brand-dark transition-colors">{t('nav.quote')}</Link>
           </div>
           <button className="lg:hidden text-white p-2" onClick={() => setOpen(true)} aria-label="menu"><Menu /></button>
         </div>
@@ -88,8 +74,7 @@ export default function Layout() {
                 </motion.div>
               ))}
               <div className="mt-6 flex gap-3">
-                <Link to={prefix(lang, '/quote')} className="flex-1 rounded-2xl bg-brand py-4 text-center font-bold text-[#15150F]">{t('nav.quote')}</Link>
-                <button onClick={switchLang} className="rounded-2xl border border-white/25 px-6 font-bold text-white">{t('nav.lang')}</button>
+                <Link to="/quote" className="flex-1 rounded-2xl bg-brand py-4 text-center font-bold text-[#15150F]">{t('nav.quote')}</Link>
               </div>
               <a href="tel:+20237608366" className="mt-4 flex items-center justify-center gap-2 text-mist"><Phone size={16} /> +20 2 3760 8366</a>
             </nav>
@@ -124,7 +109,7 @@ export default function Layout() {
             <h4 className="font-display font-extrabold text-mist">{t('footer.contact')}</h4>
             <div className="mt-4 space-y-4 text-sm text-white/80">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-mist/70">{lang === 'ar' ? 'مصر — موبايل' : 'Egypt — Mobiles'}</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-mist/70">Egypt — Mobiles</p>
                 <div className="mt-1.5 flex flex-col gap-1.5" dir="ltr">
                   <a href="tel:+201067271246" className="flex items-center gap-2 hover:text-brand-soft"><Phone size={14} className="text-brand shrink-0" />+20 106 727 1246</a>
                   <a href="tel:+201001889992" className="flex items-center gap-2 hover:text-brand-soft"><Phone size={14} className="text-brand shrink-0" />+20 100 188 9992</a>
@@ -132,7 +117,7 @@ export default function Layout() {
                 </div>
               </div>
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-mist/70">{lang === 'ar' ? 'مصر — أرضي / الخليج' : 'Landlines / Gulf'}</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-mist/70">Landlines / Gulf</p>
                 <div className="mt-1.5 flex flex-col gap-1.5" dir="ltr">
                   <a href="tel:+20237608366" className="hover:text-brand-soft">+20 2 3760 8366 <span className="text-white/50">(EG)</span></a>
                   <a href="tel:+20237627066" className="hover:text-brand-soft">+20 2 3762 7066 <span className="text-white/50">(EG)</span></a>
@@ -156,7 +141,7 @@ export default function Layout() {
                 </div>
               </div>
             </div>
-            <Link to={prefix(lang, '/quote')} className="mt-5 inline-block rounded-full bg-brand px-6 py-3 text-sm font-bold text-[#15150F] hover:bg-brand-dark">{t('cta.btn1')}</Link>
+            <Link to="/quote" className="mt-5 inline-block rounded-full bg-brand px-6 py-3 text-sm font-bold text-[#15150F] hover:bg-brand-dark">{t('cta.btn1')}</Link>
           </div>
         </div>
         <div className="border-t border-white/10 py-5 text-center text-xs text-mist/70">{t('footer.rights')}</div>

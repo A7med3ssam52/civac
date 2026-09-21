@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "build:pages": "tsc -b && vite build --base=/civac/",
     "postbuild:pages": "node scripts/gh-pages.mjs",
-    "build:single": "tsc -b && vite build --base=./ --outDir dist-single",
+    "build:single": "vite build --config vite.single.config.ts",
     "postbuild:single": "node scripts/single-preview.mjs",
     "predeploy": "npm run build:pages",
     "deploy": "gh-pages -d dist",

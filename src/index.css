@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-DEFAULT: #88993d;
-  --color-brand: #88993d;
-  --color-brand-dark: #768636;
-  --color-brand-deep: #67742e;
-  --color-brand-tint: #e8ebd9;
-  --color-brand-soft: #dde3c2;
+  --color-brand-DEFAULT: #a3b94c;
+  --color-brand: #a3b94c;
+  --color-brand-dark: #8a9e3e;
+  --color-brand-deep: #6d7e32;
+  --color-brand-tint: #eef1da;
+  --color-brand-soft: #d9e2b6;
 
   --color-ink-DEFAULT: #303026;
   --color-ink: #303026;
@@ -24,8 +24,6 @@
 
   --font-en-display: "Archivo", "Inter", system-ui, sans-serif;
   --font-en-body: "Inter", system-ui, sans-serif;
-  --font-ar-display: "Cairo", system-ui, sans-serif;
-  --font-ar-body: "IBM Plex Sans Arabic", system-ui, sans-serif;
 
   --animate-marquee: marquee 32s linear infinite;
   --animate-fade-up: fade-up 0.7s ease both;
@@ -49,28 +47,20 @@ body {
   font-family: var(--font-en-body);
 }
 
-html[dir="rtl"] body {
-  font-family: var(--font-ar-body);
-}
-
-html[dir="rtl"] .font-display {
-  font-family: var(--font-ar-display);
-}
-
 .font-display {
   font-family: var(--font-en-display);
   letter-spacing: -0.02em;
 }
 
 ::selection {
-  background: #88993d;
+  background: #a3b94c;
   color: #15150f;
 }
 
 /* thin scrollbar for wow feel */
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: #1e1e18; }
-::-webkit-scrollbar-thumb { background: #88993d; border-radius: 8px; }
+::-webkit-scrollbar-thumb { background: #a3b94c; border-radius: 8px; }
 
 /* utilities */
 .text-balance { text-wrap: balance; }

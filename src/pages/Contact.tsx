@@ -1,12 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
-import { detectLang } from '../lib/lang';
 
 export default function Contact() {
   const { t } = useTranslation();
-  const loc = useLocation();
-  const lang = detectLang(loc.pathname, loc.hash);
   const [ok, setOk] = useState(false);
   return (
     <div className="pt-[72px] bg-mist-bg min-h-screen py-16">
@@ -20,8 +16,8 @@ export default function Contact() {
           </div>
           <iframe title="map" className="mt-6 h-64 w-full rounded-3xl ring-1 ring-ink/10" loading="lazy" src="https://www.google.com/maps?q=Dokki,Giza,Egypt&output=embed" />
           <div className="mt-6 rounded-3xl bg-white p-6 ring-1 ring-ink/10">
-            <p className="text-xs font-bold tracking-[0.25em] text-ink-soft/70 uppercase">{lang === 'ar' ? 'جولة' : 'Office'}</p>
-            <h2 className="font-display mt-2 text-2xl font-extrabold text-ink">{lang === 'ar' ? 'جولة في مكاتبنا' : 'Office Tour'}</h2>
+            <p className="text-xs font-bold tracking-[0.25em] text-ink-soft/70 uppercase">Office</p>
+            <h2 className="font-display mt-2 text-2xl font-extrabold text-ink">Office Tour</h2>
             <div className="mt-4 grid grid-cols-3 gap-3">
               <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=70&auto=format&fit=crop" alt="CIVAC office" loading="lazy" className="aspect-[4/3] w-full rounded-2xl object-cover" />
               <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&q=70&auto=format&fit=crop" alt="CIVAC office workspace" loading="lazy" className="aspect-[4/3] w-full rounded-2xl object-cover" />
@@ -29,7 +25,7 @@ export default function Contact() {
             </div>
           </div>
           <div className="mt-4 rounded-3xl bg-ink p-6 text-white">
-            <p className="text-xs font-bold tracking-[0.25em] text-brand-soft uppercase">{lang === 'ar' ? 'الهيكل التنظيمي' : 'Org Chart'}</p>
+            <p className="text-xs font-bold tracking-[0.25em] text-brand-soft uppercase">Org Chart</p>
             <div className="mt-4 grid grid-cols-2 gap-3 text-center text-sm">
               {['Engineering', 'Projects', 'HSE', 'QA'].map((d) => (
                 <div key={d} className="rounded-2xl bg-white/10 px-4 py-5 font-bold text-brand-soft ring-1 ring-white/10">{d}</div>

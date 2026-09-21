@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, BadgeCheck, ChevronDown, Factory, Fan, Paintbrush, Building2, Zap } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { getClients, getProjects, getServices } from '../lib/api';
 import type { Project, Service } from '../lib/api';
 import { useLang, px } from '../hooks/useLang';
+import { siteImage } from '../lib/media';
 import { Counter, SectionHeading } from '../components/ui';
 
 const icons: Record<string, any> = { building: Building2, paint: Paintbrush, fan: Fan, zap: Zap, factory: Factory };
@@ -21,9 +22,7 @@ export default function Home() {
     getServices().then(setServices);
     getClients().then(setClients);
   }, []);
-  const [filter, setFilter] = useState<string>('all');
-  const cats = useMemo(() => ['all', ...Array.from(new Set((projects ?? []).map((p) => p.category)))], [projects]);
-  const shown = useMemo(() => (filter === 'all' ? (projects ?? []).slice(0, 6) : (projects ?? []).filter((p) => p.category === filter).slice(0, 6)), [filter, projects]);
+  const shown = (projects ?? []).slice(0, 6);
 
   return (
     <div>
@@ -47,6 +46,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* STATS */}
       <section className="bg-ink-deep border-t border-white/10">
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px px-5 py-2 md:grid-cols-4">
           {(t('stats', { returnObjects: true }) as any[]).map((s, i) => (
@@ -71,8 +71,8 @@ export default function Home() {
               return (
                 <motion.div key={s.id} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }} className="card-hover group rounded-3xl bg-ink p-6 text-white">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand text-[#15150F]"><Icon size={22} /></div>
-                  <h3 className="font-display mt-5 font-extrabold leading-snug">{lang === 'ar' ? s.titleAr : s.titleEn}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-mist/85">{lang === 'ar' ? s.descAr : s.descEn}</p>
+                  <h3 className="font-display mt-5 font-extrabold leading-snug">{s.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-mist/85">{s.desc}</p>
                   <Link to={px(lang, `/services/${s.id}`)} className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-brand-soft">→</Link>
                 </motion.div>
               );
@@ -84,25 +84,18 @@ export default function Home() {
       {/* PROJECTS */}
       <section className="bg-white py-24">
         <div className="mx-auto max-w-7xl px-5">
-          <SectionHeading eyebrow={t('projects.eyebrow')} title={t('projects.title')} sub={t('projects.subtitle')} />
-          <div className="mt-8 flex flex-wrap gap-2">
-            {cats.map((c) => (
-              <button key={c} onClick={() => setFilter(c)} className={`rounded-full px-5 py-2.5 text-sm font-bold transition-all ${filter === c ? 'bg-ink text-white' : 'bg-mist-bg text-ink-soft hover:bg-mist-light'}`}>
-                {c === 'all' ? t('projects.all') : c}
-              </button>
-            ))}
-          </div>
+          <SectionHeading eyebrow={t('projects.eyebrow')} title={t('projects.title')} />
           <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {shown.map((p) => (
               <motion.article key={p.slug} layout initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="card-hover group overflow-hidden rounded-3xl bg-white ring-1 ring-ink/10">
                 <div className="relative aspect-[16/10] overflow-hidden">
-                  <img src={p.image} alt={p.titleEn} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <img src={siteImage(p.image)} alt={p.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   <span className="absolute top-4 start-4 rounded-full bg-ink-deep/85 px-3 py-1.5 text-xs font-bold text-brand-soft backdrop-blur">{p.category}</span>
                 </div>
                 <div className="p-6">
-                  <div className="text-xs font-bold tracking-wider text-brand-deep">{lang === 'ar' ? p.clientAr : p.clientEn} • {p.year}</div>
-                  <h3 className="font-display mt-2 font-extrabold leading-snug text-ink">{lang === 'ar' ? p.titleAr : p.titleEn}</h3>
-                  <div className="mt-3 flex gap-4 text-xs text-ink-soft/80"><span>{t('projects.budget')}: <b className="text-ink">{lang === 'ar' ? p.budgetAr : p.budget}</b></span><span>{t('projects.duration')}: <b className="text-ink">{lang === 'ar' ? p.durationAr : p.duration}</b></span></div>
+                  <div className="text-xs font-bold tracking-wider text-brand-deep">{p.client} • {p.year}</div>
+                  <h3 className="font-display mt-2 font-extrabold leading-snug text-ink">{p.title}</h3>
+                  <div className="mt-3 flex gap-4 text-xs text-ink-soft/80"><span>{t('projects.budget')}: <b className="text-ink">{p.budget}</b></span><span>{t('projects.duration')}: <b className="text-ink">{p.duration}</b></span></div>
                   <Link to={px(lang, `/projects/${p.slug}`)} className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-ink hover:text-brand-deep">{t('projects.details')}<ArrowRight size={15} /></Link>
                 </div>
               </motion.article>

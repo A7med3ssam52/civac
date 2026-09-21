@@ -2,7 +2,7 @@
 // is unreliable for deep links. So after every pages build we:
 //  1. copy index.html -> 404.html (fallback where supported)
 //  2. generate a real index.html inside EVERY app route folder
-//     (dist/projects/index.html, dist/ar/... etc.) so every URL returns 200.
+//     (dist/projects/index.html etc.) so every URL returns 200.
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -23,18 +23,12 @@ const slugs = [...projectsSrc.matchAll(/slug:\s*"([^"]+)"/g)].map((m) => m[1]);
 const serviceIds = [...servicesSrc.matchAll(/id:\s*"([^"]+)"/g)].map((m) => m[1]);
 
 const routes = ['about', 'services', 'projects', 'clients', 'news', 'contact', 'quote'];
-const all = ['ar'];
-for (const r of routes) {
-  all.push(r);
-  all.push(`ar/${r}`);
-}
+const all = [...routes];
 for (const id of serviceIds) {
   all.push(`services/${id}`);
-  all.push(`ar/services/${id}`);
 }
 for (const s of slugs) {
   all.push(`projects/${s}`);
-  all.push(`ar/projects/${s}`);
 }
 
 for (const p of all) {

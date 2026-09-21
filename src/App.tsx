@@ -63,7 +63,6 @@ function SiteRoutes() {
         <Route index element={<AdminHome />} />
         {/* Wave 2: Agents D/E add "projects" and "messages" child routes here. */}
       </Route>
-      <Route path="/ar/*" element={<LangRoutes />} />
       <Route path="/*" element={<LangRoutes />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
