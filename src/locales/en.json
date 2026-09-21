@@ -1,0 +1,54 @@
+{
+  "brand": { "name": "CIVAC", "tagline": "EVERYTHING UNDER ONE ROOF!", "sub": "Engineering & Contracting since 2008" },
+  "nav": { "home": "Home", "about": "Our Story", "services": "Services", "projects": "Projects", "clients": "Clients", "news": "News", "contact": "Contact", "quote": "Get a Quote", "lang": "العربية" },
+  "hero": {
+    "badge": "Since 2008 — Egypt • KSA • UAE",
+    "titleA": "EVERYTHING",
+    "titleB": "UNDER ONE ROOF",
+    "subtitle": "Turnkey General Contractor — Civil, Finishing, MEP & Food Solution. Trusted by Heinz, Carrefour, Ghabbour and SODIC.",
+    "cta1": "Explore Projects",
+    "cta2": "Request Quotation",
+    "scroll": "Scroll"
+  },
+  "stats": [
+    { "value": 18, "suffix": "+", "label": "Years of experience" },
+    { "value": 30, "suffix": "+", "label": "Documented projects" },
+    { "value": 500, "suffix": "M+", "label": "EGP delivered contracts" },
+    { "value": 3, "suffix": "", "label": "Countries: EG / SA / AE" }
+  ],
+  "services": { "eyebrow": "What we do", "title": "Five disciplines. One accountable partner.", "subtitle": "Civil to stainless food-grade lines — no subcontractor chaos.", "viewAll": "All services", "quote": "Request similar scope" },
+  "projects": { "eyebrow": "Selected work", "title": "Proof, not promises.", "subtitle": "Filter by sector. Open any project for scope, budget and duration.", "all": "All", "details": "View details", "budget": "Budget", "duration": "Duration", "year": "Year", "client": "Client", "location": "Location", "scope": "Scope" },
+  "clients": { "eyebrow": "Trusted by industry leaders", "title": "They trusted us with their factories and stores." },
+  "why": {
+    "eyebrow": "Why CIVAC",
+    "title": "A contractor your auditors will love.",
+    "items": [
+      { "t": "Single accountability", "d": "Civil + MEP + Food under one roof, one contract, one HSE plan." },
+      { "t": "Industrial DNA", "d": "Food-grade stainless, CIP lines, MV networks and clean utilities." },
+      { "t": "HSE & Quality discipline", "d": "ISO-aligned Quality, Health, Safety and Environmental practices — method statements, risk management and permits on every site." },
+      { "t": "Value engineering", "d": "Redesign that saves budget without touching quality or safety." }
+    ]
+  },
+  "process": {
+    "eyebrow": "How we work",
+    "title": "From site survey to handover in 4 steps.",
+    "steps": [
+      { "t": "Survey & BOQ", "d": "Site visit, measurements, transparent BOQ." },
+      { "t": "Design & Value Eng.", "d": "Shop drawings, MV/HVAC calc, savings options." },
+      { "t": "Execution & HSE", "d": "Planned crews, QA/QC, daily reports." },
+      { "t": "Testing & Handover", "d": "Commissioning, O&M docs, aftercare." }
+    ]
+  },
+  "cta": { "title": "WHAT'S YOUR NEXT PROJECT?", "sub": "Send drawings or just an idea — reply within 24h with BOQ next steps.", "btn1": "Get a Quote", "btn2": "WhatsApp Us" },
+  "footer": {
+    "about": "General contractor since 2008 — Civil, Finishing, Electro-Mechanical and Food Solution turnkey works.",
+    "branches": "Branches",
+    "links": "Company",
+    "contact": "Contact",
+    "rights": "© 2026 CIVAC for Engineering and Contracting. All rights reserved."
+  },
+  "contactPage": { "title": "We would love to work with you.", "name": "Name", "phone": "Phone", "type": "Project type", "msg": "Tell us about your project...", "send": "Send Request", "ok": "Received! We will call you within 24 hours." },
+  "aboutPage": { "eyebrow": "Our Story", "title": "Alone we can do so little, together we can do so much.", "body": "Founded in Cairo in 2008 on a simple belief: technical excellence + financial discipline + project management + real resources. Today CIVAC delivers turnkey industrial, commercial and infrastructure works across Egypt, Saudi Arabia and the UAE.", "strategy": "Our strategy: proactive approach — teaming with financing providers and reputable local/regional engineers, suppliers and builders to raise quality, improve pricing and reduce risk for partner satisfaction.", "whyCivac": "Why CIVAC: highest standard of commercial construction service at a competitive price — optimum service and the highest level of partner satisfaction." },
+  "values": ["Commitment", "Quality & HSE", "People & Teamwork", "Partnership", "Continuous Improvement"],
+  "valuesBody": ["Excellence that meets client standards — professionalism, safety and integrity, on time and within budget.", "Highest Quality and HSE standards — precision, safety-first and eco-friendly practices on every site.", "People are our greatest asset — continuous training, latest methods and tools, collaboration and knowledge-sharing.", "Long-term partnerships with clients and suppliers — trust, transparency and tailored solutions for mutual growth.", "Culture of continuous improvement — refining processes, adopting tech and best practices to stay ahead."]
+}

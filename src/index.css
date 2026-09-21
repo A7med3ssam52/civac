@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-DEFAULT: #88993d;
+  --color-brand: #88993d;
+  --color-brand-dark: #768636;
+  --color-brand-deep: #67742e;
+  --color-brand-tint: #e8ebd9;
+  --color-brand-soft: #dde3c2;
+
+  --color-ink-DEFAULT: #303026;
+  --color-ink: #303026;
+  --color-ink-soft: #3e3e33;
+  --color-ink-deep: #1e1e18;
+  --color-ink-mute: #4b4b40;
+
+  --color-mist-DEFAULT: #cfd0cb;
+  --color-mist: #cfd0cb;
+  --color-mist-light: #e8e9e5;
+  --color-mist-bg: #f4f4f1;
+
+  --color-error: #c0392b;
+  --color-warning: #d97706;
+
+  --font-en-display: "Archivo", "Inter", system-ui, sans-serif;
+  --font-en-body: "Inter", system-ui, sans-serif;
+  --font-ar-display: "Cairo", system-ui, sans-serif;
+  --font-ar-body: "IBM Plex Sans Arabic", system-ui, sans-serif;
+
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-fade-up: fade-up 0.7s ease both;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-ink antialiased;
+  font-family: var(--font-en-body);
+}
+
+html[dir="rtl"] body {
+  font-family: var(--font-ar-body);
+}
+
+html[dir="rtl"] .font-display {
+  font-family: var(--font-ar-display);
+}
+
+.font-display {
+  font-family: var(--font-en-display);
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: #88993d;
+  color: #15150f;
+}
+
+/* thin scrollbar for wow feel */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #1e1e18; }
+::-webkit-scrollbar-thumb { background: #88993d; border-radius: 8px; }
+
+/* utilities */
+.text-balance { text-wrap: balance; }
+.glass-dark { background: rgb(48 48 38 / 0.8); backdrop-filter: blur(16px); }
+.hero-gradient { background: linear-gradient(to top, rgb(30 30 24 / 0.92) 0%, rgb(30 30 24 / 0.55) 45%, rgb(30 30 24 / 0.25) 100%); }
+.card-hover { transition: transform 0.35s ease, box-shadow 0.35s ease; }
+.card-hover:hover { transform: translateY(-6px); box-shadow: 0 24px 48px -16px rgb(30 48 38 / 0.35); }
