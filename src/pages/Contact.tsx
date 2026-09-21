@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 export default function Contact() {
   const { t } = useTranslation();
-  const lang = useLocation().pathname.startsWith('/ar') ? 'ar' : 'en';
+  const lang = useLocation().pathname.split('/').includes('ar') ? 'ar' : 'en';
   const [ok, setOk] = useState(false);
   return (
     <div className="pt-[72px] bg-mist-bg min-h-screen py-16">

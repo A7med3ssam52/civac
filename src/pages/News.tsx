@@ -63,7 +63,7 @@ const posts: Post[] = [
 ];
 
 export default function News() {
-  const lang = useLocation().pathname.startsWith('/ar') ? 'ar' : 'en';
+  const lang = useLocation().pathname.split('/').includes('ar') ? 'ar' : 'en';
   return (
     <div className="pt-[72px] bg-mist-bg py-16 min-h-screen"><div className="mx-auto max-w-5xl px-5">
       <h1 className="font-display text-4xl md:text-5xl font-black text-ink">{lang === 'ar' ? 'الأخبار ويوميات الموقع' : 'News & Site Diary'}</h1>

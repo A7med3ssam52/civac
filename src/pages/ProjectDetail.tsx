@@ -5,7 +5,7 @@ import { projects } from '../data/projects';
 export default function ProjectDetail() {
   const { slug } = useParams();
   const { t } = useTranslation();
-  const lang = useLocation().pathname.startsWith('/ar') ? 'ar' : 'en';
+  const lang = useLocation().pathname.split('/').includes('ar') ? 'ar' : 'en';
   const p = projects.find((x) => x.slug === slug);
   const px = (s: string) => (lang === 'ar' ? `/ar${s}` : s);
   if (!p) return <div className="pt-32 text-center">Not found — <Link to={px('/projects')}>back</Link></div>;

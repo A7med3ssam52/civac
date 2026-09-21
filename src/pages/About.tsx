@@ -4,7 +4,7 @@ import { SectionHeading } from '../components/ui';
 
 export default function About() {
   const { t } = useTranslation();
-  const lang = useLocation().pathname.startsWith('/ar') ? 'ar' : 'en';
+  const lang = useLocation().pathname.split('/').includes('ar') ? 'ar' : 'en';
   const values = t('values', { returnObjects: true }) as string[];
   const valuesBody = t('valuesBody', { returnObjects: true }) as string[];
   return (

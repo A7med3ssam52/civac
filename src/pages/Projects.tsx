@@ -7,7 +7,7 @@ import { SectionHeading } from '../components/ui';
 
 export default function Projects() {
   const { t } = useTranslation();
-  const lang = useLocation().pathname.startsWith('/ar') ? 'ar' : 'en';
+  const lang = useLocation().pathname.split('/').includes('ar') ? 'ar' : 'en';
   const [f, setF] = useState('all');
   const shown = useMemo(() => (f === 'all' ? projects : projects.filter((p) => p.category === f)), [f]);
   const px = (p: string) => (lang === 'ar' ? `/ar${p}` : p);

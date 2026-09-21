@@ -7,7 +7,7 @@ const icons: Record<string, any> = { building: Building2, paint: Paintbrush, fan
 
 export default function Services() {
   const { t } = useTranslation();
-  const lang = useLocation().pathname.startsWith('/ar') ? 'ar' : 'en';
+  const lang = useLocation().pathname.split('/').includes('ar') ? 'ar' : 'en';
   const px = (p: string) => (lang === 'ar' ? `/ar${p}` : p);
   return (
     <div className="pt-[72px] bg-mist-bg min-h-screen py-16">

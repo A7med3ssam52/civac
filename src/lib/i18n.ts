@@ -12,8 +12,9 @@ i18n
     fallbackLng: 'en',
     supportedLngs: ['en', 'ar'],
     detection: {
-      order: ['path', 'localStorage', 'navigator'],
-      lookupFromPathIndex: 0,
+      // Route-based language is synced from React Router in Layout;
+      // path detection is off so sub-path hosts (e.g. GitHub Pages /CIVAC) don't misdetect.
+      order: ['localStorage', 'navigator'],
     },
     interpolation: { escapeValue: false },
   });

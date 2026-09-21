@@ -9,7 +9,7 @@ import { Counter, SectionHeading } from '../components/ui';
 
 function useLang() {
   const { pathname } = useLocation();
-  return pathname.startsWith('/ar') ? 'ar' : 'en';
+  return pathname.split('/').includes('ar') ? 'ar' : 'en';
 }
 const px = (l: string, p: string) => (l === 'ar' ? `/ar${p === '/' ? '' : p}` : p);
 const icons: Record<string, any> = { building: Building2, paint: Paintbrush, fan: Fan, zap: Zap, factory: Factory };

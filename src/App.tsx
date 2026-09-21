@@ -36,9 +36,11 @@ function LangRoutes({ base }: { base: string }) {
 }
 
 export default function App() {
+  // '/CIVAC' on GitHub Pages builds (vite --base), '/' everywhere else (local dev, root domain)
+  const basename = import.meta.env.BASE_URL.replace(/\/+$/, '') || '/';
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <Routes>
           <Route path="/ar/*" element={<LangRoutes base="/ar" />} />
           <Route path="/*" element={<LangRoutes base="" />} />

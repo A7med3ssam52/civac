@@ -4,7 +4,7 @@ import { services } from '../data/services';
 
 export default function ServiceDetail() {
   const { id } = useParams();
-  const lang = useLocation().pathname.startsWith('/ar') ? 'ar' : 'en';
+  const lang = useLocation().pathname.split('/').includes('ar') ? 'ar' : 'en';
   const s = services.find((x) => x.id === id) ?? services[0];
   const related = projects.filter((p) => (s.id === 'civil' && ['industrial', 'residential', 'infrastructure'].includes(p.category)) || (s.id === 'food' && p.category === 'food-beverage') || (s.id === 'electrical' && p.category === 'infrastructure') || (s.id === 'mechanical' && p.category === 'engineering') || !['industrial'].includes(p.category)).slice(0, 3);
   const px = (p: string) => (lang === 'ar' ? `/ar${p}` : p);

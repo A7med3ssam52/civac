@@ -6,7 +6,7 @@ import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-do
 
 function useLang() {
   const { pathname } = useLocation();
-  return pathname.startsWith('/ar') ? 'ar' : 'en';
+  return pathname.split('/').includes('ar') ? 'ar' : 'en';
 }
 function prefix(lang: string, path: string) {
   return lang === 'ar' ? `/ar${path === '/' ? '' : path}` : path;
@@ -56,7 +56,7 @@ export default function Layout() {
       <header className={`fixed top-0 inset-x-0 z-50 transition-all ${scrolled ? 'glass-dark shadow-xl !bg-ink-deep/90' : 'bg-gradient-to-b from-ink-deep/70 to-transparent'}`}>
         <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5">
           <Link to={prefix(lang, '/')} className="flex items-center gap-3">
-            <img src="/logo.svg" alt="CIVAC — Engineering and Contracting" className="h-11 w-auto rounded-lg" />
+            <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="CIVAC — Engineering and Contracting" className="h-11 w-auto rounded-lg" />
           </Link>
           <nav className="hidden lg:flex items-center gap-7">
             {links.map((l) => (
@@ -101,7 +101,7 @@ export default function Layout() {
       <footer className="bg-ink-deep text-white">
         <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 md:grid-cols-4">
           <div>
-            <img src="/logo.svg" alt="CIVAC" className="h-11 rounded-lg" />
+            <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="CIVAC" className="h-11 rounded-lg" />
             <p className="mt-4 text-sm leading-relaxed text-mist/90">{t('footer.about')}</p>
             <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-brand/15 border border-brand/30 px-3 py-1.5 text-xs font-bold text-brand-soft">ISO 9001 • 14001 • 45001</div>
           </div>

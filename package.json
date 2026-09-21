@@ -6,6 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:pages": "tsc -b && vite build --base=/CIVAC/",
+    "postbuild:pages": "node scripts/copy404.mjs",
+    "predeploy": "npm run build:pages",
+    "deploy": "gh-pages -d dist",
     "lint": "oxlint",
     "preview": "vite preview"
   },
@@ -30,6 +34,7 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
+    "gh-pages": "^6.3.0",
     "oxlint": "^1.81.0",
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.2",
